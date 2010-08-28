@@ -1,18 +1,34 @@
+//set up the window
+
 var win = Ti.UI.currentWindow;
 win.backgroundColor='#9fa2ab';
+
+//buttons of 'next' and 'prevoius' month
 var prev = Ti.UI.createButton({title:'Previous Month'});
 var next = Ti.UI.createButton({title:'Next Month'});
-var barView = null;
-var calendayView = null;
-var selected = null;
-var today = null;
-var label = Ti.UI.createButton({top:300,height:50,width:200,title:'Go Back'});
 win.rightNavButton=next;
 win.leftNavButton=prev;
-var showCal = function(a,b,c){
-	barView = Ti.UI.createView({width:320,height:45,top:0,left:0,backgroundImage:'barview.png'});
-	calendayView = Ti.UI.createView({width:320,height:270,top:46,left:3,layout:'horizontal'});
 
+//vars that will be called later
+var barView = null;
+var calendarView = null;
+var selected = null;
+var today = null;
+
+//button with the selected day that closes the window
+var label = Ti.UI.createButton({top:300,height:50,width:200,title:'Go Back'});
+win.add(label);
+
+//---main function, this draws the calendar on the window, the values:---
+// a = year
+// b = month
+// c = day
+var showCal = function(a,b,c){
+	// main two views
+	barView = Ti.UI.createView({width:320,height:45,top:0,left:0,backgroundImage:'barview.png'});
+	calendarView = Ti.UI.createView({width:320,height:270,top:46,left:3,layout:'horizontal'});
+	
+	//set up the date according to the values a, b, and c
 	var date = new Date(a,b,c);	
 	var year = date.getFullYear();
 	var month = date.getMonth();
@@ -22,11 +38,13 @@ var showCal = function(a,b,c){
 
 	var selectedDay = dayOfMonth;
 
-	Ti.API.info(year);
-	Ti.API.info(month);
-	Ti.API.info(dayOfMonth);
-	Ti.API.info(dayOfWeek);
+	//some things to show up on the console
+	Ti.API.info('year: '+year);
+	Ti.API.info('month :'+month);
+	Ti.API.info('day of the month :'+dayOfMonth);
+	Ti.API.info('first day of the week' +dayOfWeek);
 	
+	//what month are we on?
 	var thisMonth = null;
 	if (month == 0){thisMonth="January";}
 	if (month == 1){thisMonth="February";}
@@ -40,6 +58,8 @@ var showCal = function(a,b,c){
 	if (month == 9){thisMonth="October";}
 	if (month == 10){thisMonth="November";}
 	if (month == 11){thisMonth="December";}
+	
+	//set up the barView, name of month, days of the week, etc
 	var title = thisMonth+" "+year;
 
 	var monthName =  Ti.UI.createButton({color:'#545454',top:0,left:35,width:250,height:30,title:title,style:'NONE',font:{fontSize:22,fontWeight:'bold'}});
@@ -62,6 +82,7 @@ var showCal = function(a,b,c){
 	barView.add(friLabel);
 	barView.add(satLabel);
 	
+	//set up the first day of the month on the calendar
 	var startDay = null;
 	if (dayOfWeek == 0){startDay = -1;}		// sunday
 	if (dayOfWeek == 1){startDay = 44;}		// monday
@@ -71,188 +92,87 @@ var showCal = function(a,b,c){
 	if (dayOfWeek == 5){startDay = 224;}	// friday
 	if (dayOfWeek == 6){startDay = 269;}	// saturday
 
-	var i = 1;
-	var day1 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:startDay,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day2 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day3 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day4 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day5 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day6 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day7 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day8 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day9 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day10 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day11 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day12 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day13 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day14 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day15 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day16 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day17 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day18 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day19 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day20 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day21 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day22 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day23 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day24 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day25 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day26 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day27 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day28 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	if (daysInMonth > 28){
-	var day29 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	var day30 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});i++;
-	if (daysInMonth > 30){
-	var day31 =  Ti.UI.createButton({title:i,color:'#2c3540',font:{fontWeight:'bold',fontSize:22},width:46, height:45,left:-1,top:-1,backgroundImage:'button1.png',backgroundSelectedImage:'button2.png'});
-	}}
-
-	calendayView.add(day1);
-	calendayView.add(day2);
-	calendayView.add(day3);
-	calendayView.add(day4);
-	calendayView.add(day5);
-	calendayView.add(day6);
-	calendayView.add(day7);
-	calendayView.add(day8);
-	calendayView.add(day9);
-	calendayView.add(day10);
-	calendayView.add(day11);
-	calendayView.add(day12);
-	calendayView.add(day13);
-	calendayView.add(day14);
-	calendayView.add(day15);
-	calendayView.add(day16);
-	calendayView.add(day17);
-	calendayView.add(day18);
-	calendayView.add(day19);
-	calendayView.add(day20);
-	calendayView.add(day21);
-	calendayView.add(day22);
-	calendayView.add(day23);
-	calendayView.add(day24);
-	calendayView.add(day25);
-	calendayView.add(day26);
-	calendayView.add(day27);
-	calendayView.add(day28);
-	if (daysInMonth > 28){
-	calendayView.add(day29);
-	calendayView.add(day30);
-	if (daysInMonth > 30){
-	calendayView.add(day31);
-	}}
-//	var today = function(){
-		if (day1.title == dayOfMonth){day1.backgroundImage='button3.png';day1.color='white';selected=day1;today=day1;}
-		if (day2.title == dayOfMonth){day2.backgroundImage='button3.png';day2.color='white';selected=day2;today=day2;}
-		if (day3.title == dayOfMonth){day3.backgroundImage='button3.png';day3.color='white';selected=day3;today=day3;}
-		if (day4.title == dayOfMonth){day4.backgroundImage='button3.png';day4.color='white';selected=day4;today=day4;}
-		if (day5.title == dayOfMonth){day5.backgroundImage='button3.png';day5.color='white';selected=day5;today=day5;}
-		if (day6.title == dayOfMonth){day6.backgroundImage='button3.png';day6.color='white';selected=day6;today=day6;}
-		if (day7.title == dayOfMonth){day7.backgroundImage='button3.png';day7.color='white';selected=day7;today=day7;}
-		if (day8.title == dayOfMonth){day8.backgroundImage='button3.png';day8.color='white';selected=day8;today=day8;}
-		if (day9.title == dayOfMonth){day9.backgroundImage='button3.png';day9.color='white';selected=day9;today=day9;}
-		if (day10.title == dayOfMonth){day10.backgroundImage='button3.png';day10.color='white';selected=day10;today=day10;}
-		if (day11.title == dayOfMonth){day11.backgroundImage='button3.png';day11.color='white';selected=day11;today=day11;}
-		if (day12.title == dayOfMonth){day12.backgroundImage='button3.png';day12.color='white';selected=day12;today=day12;}
-		if (day13.title == dayOfMonth){day13.backgroundImage='button3.png';day13.color='white';selected=day13;today=day13;}
-		if (day14.title == dayOfMonth){day14.backgroundImage='button3.png';day14.color='white';selected=day14;today=day14;}
-		if (day15.title == dayOfMonth){day15.backgroundImage='button3.png';day15.color='white';selected=day15;today=day15;}
-		if (day16.title == dayOfMonth){day16.backgroundImage='button3.png';day16.color='white';selected=day16;today=day16;}
-		if (day18.title == dayOfMonth){day17.backgroundImage='button3.png';day17.color='white';selected=day17;today=day17;}
-		if (day17.title == dayOfMonth){day18.backgroundImage='button3.png';day18.color='white';selected=day18;today=day18;}
-		if (day19.title == dayOfMonth){day19.backgroundImage='button3.png';day19.color='white';selected=day19;today=day19;}
-		if (day20.title == dayOfMonth){day20.backgroundImage='button3.png';day20.color='white';selected=day20;today=day20;}
-		if (day21.title == dayOfMonth){day21.backgroundImage='button3.png';day21.color='white';selected=day21;today=day21;}
-		if (day22.title == dayOfMonth){day22.backgroundImage='button3.png';day22.color='white';selected=day22;today=day22;}
-		if (day23.title == dayOfMonth){day23.backgroundImage='button3.png';day23.color='white';selected=day23;today=day23;}
-		if (day24.title == dayOfMonth){day24.backgroundImage='button3.png';day24.color='white';selected=day24;today=day24;}
-		if (day25.title == dayOfMonth){day25.backgroundImage='button3.png';day25.color='white';selected=day25;today=day25;}
-		if (day26.title == dayOfMonth){day26.backgroundImage='button3.png';day26.color='white';selected=day26;today=day26;}
-		if (day27.title == dayOfMonth){day27.backgroundImage='button3.png';day27.color='white';selected=day27;today=day27;}
-		if (day28.title == dayOfMonth){day28.backgroundImage='button3.png';day28.color='white';selected=day28;today=day28;}
-		if (daysInMonth > 28){
-		if (day29.title == dayOfMonth){day29.backgroundImage='button3.png';day29.color='white';selected=day29;today=day29;}
-		if (day30.title == dayOfMonth){day30.backgroundImage='button3.png';day30.color='white';selected=day30;today=day30;}
-		if (daysInMonth > 30){
-		if (day31.title == dayOfMonth){day31.backgroundImage='button3.png';day31.color='white';selected=day31;today=day31;}
-		}}
-//	};
-
-	var clicker = function(thisday){
-		selected.backgroundImage='button1.png';selected.color='#2c3540';
-		today.backgroundImage='button3.png';today.color='white';
-		//today();
-		Ti.API.info(selected.title);
-		thisday.backgroundImage='button2.png';thisday.color='white';
-		label.title = thisMonth+" "+thisday.title+" "+year; 
-		selected=thisday;
-		
+	//function that makes everything work
+	var clicker = function(e){
+		e.addEventListener('click',function(thisday){
+			selected.backgroundImage='button1.png';selected.color='#2c3540';
+			today.backgroundImage='button3.png';today.color='white';
+			thisday.source.backgroundImage='button2.png';thisday.source.color='white';
+			label.title = thisMonth+" "+thisday.source.title+" "+year; 
+			selected=thisday.source;
+		});
 	};
-	//today();
-	day1.addEventListener('click',function(e){clicker(day1);});
-	day2.addEventListener('click',function(e){clicker(day2);});
-	day3.addEventListener('click',function(e){clicker(day3);});
-	day4.addEventListener('click',function(e){clicker(day4);});
-	day5.addEventListener('click',function(e){clicker(day5);});
-	day6.addEventListener('click',function(e){clicker(day6);});
-	day7.addEventListener('click',function(e){clicker(day7);});
-	day8.addEventListener('click',function(e){clicker(day8);});
-	day9.addEventListener('click',function(e){clicker(day9);});
-	day10.addEventListener('click',function(e){clicker(day10);});
-	day11.addEventListener('click',function(e){clicker(day11);});
-	day12.addEventListener('click',function(e){clicker(day12);});
-	day13.addEventListener('click',function(e){clicker(day13);});
-	day14.addEventListener('click',function(e){clicker(day14);});
-	day15.addEventListener('click',function(e){clicker(day15);});
-	day16.addEventListener('click',function(e){clicker(day16);});
-	day17.addEventListener('click',function(e){clicker(day17);});
-	day18.addEventListener('click',function(e){clicker(day18);});
-	day19.addEventListener('click',function(e){clicker(day19);});
-	day20.addEventListener('click',function(e){clicker(day20);});
-	day21.addEventListener('click',function(e){clicker(day21);});
-	day22.addEventListener('click',function(e){clicker(day22);});
-	day23.addEventListener('click',function(e){clicker(day23);});
-	day24.addEventListener('click',function(e){clicker(day24);});
-	day25.addEventListener('click',function(e){clicker(day25);});
-	day26.addEventListener('click',function(e){clicker(day26);});
-	day27.addEventListener('click',function(e){clicker(day27);});
-	day28.addEventListener('click',function(e){clicker(day28);});
-	if (daysInMonth > 28){
-	day29.addEventListener('click',function(e){clicker(day29);});
-	day30.addEventListener('click',function(e){clicker(day30);});
-	if (daysInMonth > 30){
-	day31.addEventListener('click',function(e){clicker(day31);});
-	
-	}}
+
+	//draw the calendar. The number of days of the month is the number of times that the loop repeats
+	var i = 1;
+	while (i < daysInMonth+1){
+		var day =  Ti.UI.createButton({title:i,font:{fontWeight:'bold',fontSize:22},width:46, height:45,top:-1,backgroundSelectedImage:'button2.png'});
+
+		//where to put the first day. (monday, tuesday, etc)
+		if (day.title == 1){
+			day.left=startDay;
+		}else{
+			day.left=-1;
+		}
+
+		//determine which day has to be special, this highlights 'today'
+		if (day.title == dayOfMonth){
+			day.backgroundImage='button3.png';
+			day.color='white';
+			selected=day;
+			today=day;
+		}else{
+			day.backgroundImage='button1.png';
+			day.color='#2c3540';
+		}
+
+		//make everything work!
+		clicker(day);
+
+		//add everyday to the calendarView (one by one, obviously)
+		calendarView.add(day);
+		i++;
+	}
 	win.add(barView);
-	win.add(calendayView);
+	win.add(calendarView);
 	win.title = selectedDay;
 };
+//---end of the main function---
+
+//set up todays date (default, but you can change it)
 var setDate = new Date();
 setYear = setDate.getFullYear();
 setMonth = setDate.getMonth();
 setDay = setDate.getDate();
 
+//change to next month
 next.addEventListener('click',function(e){
+	//add one month
 	setMonth++;
+	//remove everything from the window
 	win.remove(barView);
-	win.remove(calendayView);
-	showCal(setYear,setMonth,setDay);
-});
-prev.addEventListener('click',function(e){
-	setMonth--;
-	win.remove(barView);
-	win.remove(calendayView);
+	win.remove(calendarView);
+	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
 });
 
+//change to next month
+prev.addEventListener('click',function(e){
+	//subtract one month
+	setMonth--;
+	//remove everything from the window
+	win.remove(barView);
+	win.remove(calendarView);
+	//redraw, and of course, put everything back on the window with the new values
+	showCal(setYear,setMonth,setDay);
+});
+
+//draw the calendar, this calls the main function 'showCal' with the default values
 showCal(setYear,setMonth,setDay);
 
+//click on the main button to close the window and create a variable called 'finalDate' with the selected date to pass to the previous window
 label.addEventListener('click',function(){
 	win.finalDate = label.title;
 	Ti.API.info(win.finalDate);
 	win.close();
 });
-
-win.add(label);
-win.open({modal:true});
