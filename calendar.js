@@ -4,6 +4,8 @@ var prev = Ti.UI.createButton({title:'Previous Month'});
 var next = Ti.UI.createButton({title:'Next Month'});
 var barView = null;
 var calendayView = null;
+var selected = null;
+var today = null;
 var label = Ti.UI.createButton({top:300,height:50,width:200,title:'Go Back'});
 win.rightNavButton=next;
 win.leftNavButton=prev;
@@ -139,84 +141,54 @@ var showCal = function(a,b,c){
 	if (daysInMonth > 30){
 	calendayView.add(day31);
 	}}
-	var today = function(){
-		if (day1.title == dayOfMonth){day1.backgroundImage='button3.png';day1.color='white';}
-		if (day2.title == dayOfMonth){day2.backgroundImage='button3.png';day2.color='white';}
-		if (day3.title == dayOfMonth){day3.backgroundImage='button3.png';day3.color='white';}
-		if (day4.title == dayOfMonth){day4.backgroundImage='button3.png';day4.color='white';}
-		if (day5.title == dayOfMonth){day5.backgroundImage='button3.png';day5.color='white';}
-		if (day6.title == dayOfMonth){day6.backgroundImage='button3.png';day6.color='white';}
-		if (day7.title == dayOfMonth){day7.backgroundImage='button3.png';day7.color='white';}
-		if (day8.title == dayOfMonth){day8.backgroundImage='button3.png';day8.color='white';}
-		if (day9.title == dayOfMonth){day9.backgroundImage='button3.png';day9.color='white';}
-		if (day10.title == dayOfMonth){day10.backgroundImage='button3.png';day10.color='white';}
-		if (day11.title == dayOfMonth){day11.backgroundImage='button3.png';day11.color='white';}
-		if (day12.title == dayOfMonth){day12.backgroundImage='button3.png';day12.color='white';}
-		if (day13.title == dayOfMonth){day13.backgroundImage='button3.png';day13.color='white';}
-		if (day14.title == dayOfMonth){day14.backgroundImage='button3.png';day14.color='white';}
-		if (day15.title == dayOfMonth){day15.backgroundImage='button3.png';day15.color='white';}
-		if (day16.title == dayOfMonth){day16.backgroundImage='button3.png';day16.color='white';}
-		if (day18.title == dayOfMonth){day17.backgroundImage='button3.png';day17.color='white';}
-		if (day17.title == dayOfMonth){day18.backgroundImage='button3.png';day18.color='white';}
-		if (day19.title == dayOfMonth){day19.backgroundImage='button3.png';day19.color='white';}
-		if (day20.title == dayOfMonth){day20.backgroundImage='button3.png';day20.color='white';}
-		if (day21.title == dayOfMonth){day21.backgroundImage='button3.png';day21.color='white';}
-		if (day22.title == dayOfMonth){day22.backgroundImage='button3.png';day22.color='white';}
-		if (day23.title == dayOfMonth){day23.backgroundImage='button3.png';day23.color='white';}
-		if (day24.title == dayOfMonth){day24.backgroundImage='button3.png';day24.color='white';}
-		if (day25.title == dayOfMonth){day25.backgroundImage='button3.png';day25.color='white';}
-		if (day26.title == dayOfMonth){day26.backgroundImage='button3.png';day26.color='white';}
-		if (day27.title == dayOfMonth){day27.backgroundImage='button3.png';day27.color='white';}
-		if (day28.title == dayOfMonth){day28.backgroundImage='button3.png';day28.color='white';}
+//	var today = function(){
+		if (day1.title == dayOfMonth){day1.backgroundImage='button3.png';day1.color='white';selected=day1;today=day1;}
+		if (day2.title == dayOfMonth){day2.backgroundImage='button3.png';day2.color='white';selected=day2;today=day2;}
+		if (day3.title == dayOfMonth){day3.backgroundImage='button3.png';day3.color='white';selected=day3;today=day3;}
+		if (day4.title == dayOfMonth){day4.backgroundImage='button3.png';day4.color='white';selected=day4;today=day4;}
+		if (day5.title == dayOfMonth){day5.backgroundImage='button3.png';day5.color='white';selected=day5;today=day5;}
+		if (day6.title == dayOfMonth){day6.backgroundImage='button3.png';day6.color='white';selected=day6;today=day6;}
+		if (day7.title == dayOfMonth){day7.backgroundImage='button3.png';day7.color='white';selected=day7;today=day7;}
+		if (day8.title == dayOfMonth){day8.backgroundImage='button3.png';day8.color='white';selected=day8;today=day8;}
+		if (day9.title == dayOfMonth){day9.backgroundImage='button3.png';day9.color='white';selected=day9;today=day9;}
+		if (day10.title == dayOfMonth){day10.backgroundImage='button3.png';day10.color='white';selected=day10;today=day10;}
+		if (day11.title == dayOfMonth){day11.backgroundImage='button3.png';day11.color='white';selected=day11;today=day11;}
+		if (day12.title == dayOfMonth){day12.backgroundImage='button3.png';day12.color='white';selected=day12;today=day12;}
+		if (day13.title == dayOfMonth){day13.backgroundImage='button3.png';day13.color='white';selected=day13;today=day13;}
+		if (day14.title == dayOfMonth){day14.backgroundImage='button3.png';day14.color='white';selected=day14;today=day14;}
+		if (day15.title == dayOfMonth){day15.backgroundImage='button3.png';day15.color='white';selected=day15;today=day15;}
+		if (day16.title == dayOfMonth){day16.backgroundImage='button3.png';day16.color='white';selected=day16;today=day16;}
+		if (day18.title == dayOfMonth){day17.backgroundImage='button3.png';day17.color='white';selected=day17;today=day17;}
+		if (day17.title == dayOfMonth){day18.backgroundImage='button3.png';day18.color='white';selected=day18;today=day18;}
+		if (day19.title == dayOfMonth){day19.backgroundImage='button3.png';day19.color='white';selected=day19;today=day19;}
+		if (day20.title == dayOfMonth){day20.backgroundImage='button3.png';day20.color='white';selected=day20;today=day20;}
+		if (day21.title == dayOfMonth){day21.backgroundImage='button3.png';day21.color='white';selected=day21;today=day21;}
+		if (day22.title == dayOfMonth){day22.backgroundImage='button3.png';day22.color='white';selected=day22;today=day22;}
+		if (day23.title == dayOfMonth){day23.backgroundImage='button3.png';day23.color='white';selected=day23;today=day23;}
+		if (day24.title == dayOfMonth){day24.backgroundImage='button3.png';day24.color='white';selected=day24;today=day24;}
+		if (day25.title == dayOfMonth){day25.backgroundImage='button3.png';day25.color='white';selected=day25;today=day25;}
+		if (day26.title == dayOfMonth){day26.backgroundImage='button3.png';day26.color='white';selected=day26;today=day26;}
+		if (day27.title == dayOfMonth){day27.backgroundImage='button3.png';day27.color='white';selected=day27;today=day27;}
+		if (day28.title == dayOfMonth){day28.backgroundImage='button3.png';day28.color='white';selected=day28;today=day28;}
 		if (daysInMonth > 28){
-		if (day29.title == dayOfMonth){day29.backgroundImage='button3.png';day29.color='white';}
-		if (day30.title == dayOfMonth){day30.backgroundImage='button3.png';day30.color='white';}
+		if (day29.title == dayOfMonth){day29.backgroundImage='button3.png';day29.color='white';selected=day29;today=day29;}
+		if (day30.title == dayOfMonth){day30.backgroundImage='button3.png';day30.color='white';selected=day30;today=day30;}
 		if (daysInMonth > 30){
-		if (day31.title == dayOfMonth){day31.backgroundImage='button3.png';day31.color='white';}
+		if (day31.title == dayOfMonth){day31.backgroundImage='button3.png';day31.color='white';selected=day31;today=day31;}
 		}}
-	};
+//	};
 
 	var clicker = function(thisday){
-		day1.backgroundImage='button1.png';day1.color='#2c3540';
-		day2.backgroundImage='button1.png';day2.color='#2c3540';
-		day3.backgroundImage='button1.png';day3.color='#2c3540';
-		day4.backgroundImage='button1.png';day4.color='#2c3540';
-		day5.backgroundImage='button1.png';day5.color='#2c3540';
-		day6.backgroundImage='button1.png';day6.color='#2c3540';
-		day7.backgroundImage='button1.png';day7.color='#2c3540';
-		day8.backgroundImage='button1.png';day8.color='#2c3540';
-		day9.backgroundImage='button1.png';day9.color='#2c3540';
-		day10.backgroundImage='button1.png';day10.color='#2c3540';
-		day11.backgroundImage='button1.png';day11.color='#2c3540';
-		day12.backgroundImage='button1.png';day12.color='#2c3540';
-		day13.backgroundImage='button1.png';day13.color='#2c3540';
-		day14.backgroundImage='button1.png';day14.color='#2c3540';
-		day15.backgroundImage='button1.png';day15.color='#2c3540';
-		day16.backgroundImage='button1.png';day16.color='#2c3540';
-		day17.backgroundImage='button1.png';day17.color='#2c3540';
-		day18.backgroundImage='button1.png';day18.color='#2c3540';
-		day19.backgroundImage='button1.png';day19.color='#2c3540';
-		day20.backgroundImage='button1.png';day20.color='#2c3540';
-		day21.backgroundImage='button1.png';day21.color='#2c3540';
-		day22.backgroundImage='button1.png';day22.color='#2c3540';
-		day23.backgroundImage='button1.png';day23.color='#2c3540';
-		day24.backgroundImage='button1.png';day24.color='#2c3540';
-		day25.backgroundImage='button1.png';day25.color='#2c3540';
-		day26.backgroundImage='button1.png';day26.color='#2c3540';
-		day27.backgroundImage='button1.png';day27.color='#2c3540';	
-		day28.backgroundImage='button1.png';day28.color='#2c3540';
-		if (daysInMonth > 28){
-		day29.backgroundImage='button1.png';day29.color='#2c3540';
-		day30.backgroundImage='button1.png';day30.color='#2c3540';
-		if (daysInMonth > 30){
-		day31.backgroundImage='button1.png';day31.color='#2c3540';
-		}}
-		today();
+		selected.backgroundImage='button1.png';selected.color='#2c3540';
+		today.backgroundImage='button3.png';today.color='white';
+		//today();
+		Ti.API.info(selected.title);
 		thisday.backgroundImage='button2.png';thisday.color='white';
 		label.title = thisMonth+" "+thisday.title+" "+year; 
+		selected=thisday;
 		
 	};
-	today();
+	//today();
 	day1.addEventListener('click',function(e){clicker(day1);});
 	day2.addEventListener('click',function(e){clicker(day2);});
 	day3.addEventListener('click',function(e){clicker(day3);});
