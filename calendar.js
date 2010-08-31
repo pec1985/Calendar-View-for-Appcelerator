@@ -1,6 +1,7 @@
 //set up the window
 
 var win = Ti.UI.currentWindow;
+win.layout='vertical';
 win.backgroundColor='#9fa2ab';
 
 //buttons of 'next' and 'prevoius' month
@@ -16,8 +17,9 @@ var selected = null;
 var today = null;
 
 //button with the selected day that closes the window
-var label = Ti.UI.createButton({top:300,height:50,width:200,title:'Go Back'});
-win.add(label);
+var bgView=Ti.UI.createView({width:'320',height:'48',backgroundImage:'bgcal.png'});
+var otherView=Ti.UI.createView({width:'320',height:'200',backgroundColor:'#FFF'});
+var label = Ti.UI.createButton({top:0,height:50,width:200,title:'Go Back'});
 
 //---main function, this draws the calendar on the window, the values:---
 // a = year
@@ -26,7 +28,7 @@ win.add(label);
 var showCal = function(a,b,c){
 	// main two views
 	barView = Ti.UI.createView({width:320,height:45,top:0,left:0,backgroundImage:'barview.png'});
-	calendarView = Ti.UI.createView({width:320,height:270,top:46,left:3,layout:'horizontal'});
+	calendarView = Ti.UI.createView({width:'auto',left:3,height:'auto',layout:'horizontal'});
 	
 	//set up the date according to the values a, b, and c
 	var date = new Date(a,b,c);	
@@ -135,6 +137,10 @@ var showCal = function(a,b,c){
 	}
 	win.add(barView);
 	win.add(calendarView);
+	otherView.add(label);
+	win.add(bgView);
+	win.add(otherView);
+
 	win.title = selectedDay;
 };
 //---end of the main function---
@@ -152,6 +158,8 @@ next.addEventListener('click',function(e){
 	//remove everything from the window
 	win.remove(barView);
 	win.remove(calendarView);
+	win.remove(bgView);
+	win.remove(otherView);
 	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
 });
@@ -163,6 +171,8 @@ prev.addEventListener('click',function(e){
 	//remove everything from the window
 	win.remove(barView);
 	win.remove(calendarView);
+	win.remove(bgView);
+	win.remove(otherView);
 	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
 });
