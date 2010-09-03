@@ -1,8 +1,7 @@
 //set up the window
 
 var win = Ti.UI.currentWindow;
-win.layout='vertical';
-win.backgroundColor='#9fa2ab';
+var mainView = Ti.UI.createView({top:0,height:'auto',width:'auto',layout:'vertical',backgroundColor:'#9fa2ab'});
 
 //buttons of 'next' and 'prevoius' month
 var prev = Ti.UI.createButton({title:'Previous Month'});
@@ -26,6 +25,7 @@ var label = Ti.UI.createButton({top:0,height:50,width:200,title:'Go Back'});
 // b = month
 // c = day
 var showCal = function(a,b,c){
+	
 	/*
 	Ti.API.info('');
 	Ti.API.info('a: '+a);
@@ -198,13 +198,13 @@ var showCal = function(a,b,c){
 	
 	//add all of this mess to the window :)
 	
-	win.add(barView);
-	win.add(calendarView);
+	mainView.add(barView);
+	mainView.add(calendarView);
 	otherView.add(label);
-	win.add(bgView);
-	win.add(otherView);
-
-	win.title = setMonth+1;
+	mainView.add(bgView);
+	mainView.add(otherView);
+	mainView.title = setMonth+1;
+	
 };
 //---end of the main function---
 
@@ -217,6 +217,7 @@ setDay = setDate.getDate();
 
 //showCal(setYear,3,setDay);
 showCal(setYear,setMonth,setDay);
+win.add(mainView);
 
 
 //change to next month
@@ -225,13 +226,16 @@ next.addEventListener('click',function(e){
 	setMonth++;
 	if (setMonth > 11){setMonth = setMonth-12; setYear++;}
 	
+	win.animate({view:mainView,transition: Ti.UI.iPhone.AnimationStyle.CURL_UP});
 	//remove everything from the window
-	win.remove(barView);
-	win.remove(calendarView);
-	win.remove(bgView);
-	win.remove(otherView);
+	mainView.remove(barView);
+	mainView.remove(calendarView);
+	mainView.remove(bgView);
+	mainView.remove(otherView);
 	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
+
+	
 });
 
 //change to next month
@@ -240,15 +244,15 @@ prev.addEventListener('click',function(e){
 	setMonth--;
 	if (setMonth < 0){setMonth = setMonth+12; setYear--;}
 	
+	win.animate({view:mainView,transition: Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
 	//remove everything from the window
-	win.remove(barView);
-	win.remove(calendarView);
-	win.remove(bgView);
-	win.remove(otherView);
+	mainView.remove(barView);
+	mainView.remove(calendarView);
+	mainView.remove(bgView);
+	mainView.remove(otherView);
 	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
 });
-
 
 //click on the main button to close the window and create a variable called 'finalDate' with the selected date to pass to the previous window
 label.addEventListener('click',function(){
