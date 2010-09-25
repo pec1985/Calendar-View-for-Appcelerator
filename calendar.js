@@ -18,7 +18,7 @@ var today = null;
 //button with the selected day that closes the window
 var bgView=Ti.UI.createView({width:'320',height:'48',backgroundImage:'bgcal.png'});
 var otherView=Ti.UI.createView({width:'320',height:'200',backgroundColor:'#FFF'});
-var label = Ti.UI.createButton({top:0,height:50,width:200,title:'Go Back'});
+var label = Ti.UI.createButton({top:0,height:50,width:200,title:win.dateValue});
 
 //---main function, this draws the calendar on the window, the values:---
 // a = year
