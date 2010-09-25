@@ -219,14 +219,17 @@ setDay = setDate.getDate();
 showCal(setYear,setMonth,setDay);
 win.add(mainView);
 
-
 //change to next month
 next.addEventListener('click',function(e){
-	//add one month
+	//remove buttons from NavBar
+	win.leftNavButton=null;	
+	win.rightNavButton=null;	
+	//add one month	
 	setMonth++;
 	if (setMonth > 11){setMonth = setMonth-12; setYear++;}
-	
-	win.animate({view:mainView,transition: Ti.UI.iPhone.AnimationStyle.CURL_UP});
+	//create animation
+	var animation = Ti.UI.createAnimation({view:mainView,transition: Ti.UI.iPhone.AnimationStyle.CURL_UP,delay: 1300});
+	win.animate(animation);
 	//remove everything from the window
 	mainView.remove(barView);
 	mainView.remove(calendarView);
@@ -234,17 +237,24 @@ next.addEventListener('click',function(e){
 	mainView.remove(otherView);
 	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
-
-	
+	//put buttons back where they where, this prevents the user from clicking before the animation is complete
+	animation.addEventListener('complete', function(){
+		win.rightNavButton=next;	
+		win.leftNavButton=prev;	
+	});
 });
 
 //change to next month
 prev.addEventListener('click',function(e){
+	//remove buttons from NavBar
+	win.leftNavButton=null;	
+	win.rightNavButton=null;	
 	//subtract one month
 	setMonth--;
 	if (setMonth < 0){setMonth = setMonth+12; setYear--;}
-	
-	win.animate({view:mainView,transition: Ti.UI.iPhone.AnimationStyle.CURL_DOWN});
+	//create animation
+	var animation = Ti.UI.createAnimation({view:mainView,transition: Ti.UI.iPhone.AnimationStyle.CURL_UP,delay: 1300});
+	win.animate(animation);
 	//remove everything from the window
 	mainView.remove(barView);
 	mainView.remove(calendarView);
@@ -252,6 +262,11 @@ prev.addEventListener('click',function(e){
 	mainView.remove(otherView);
 	//redraw, and of course, put everything back on the window with the new values
 	showCal(setYear,setMonth,setDay);
+	//put buttons back where they where, this prevents the user from clicking before the animation is complete
+	animation.addEventListener('complete', function(){
+		win.rightNavButton=next;	
+		win.leftNavButton=prev;	
+	});
 });
 
 //click on the main button to close the window and create a variable called 'finalDate' with the selected date to pass to the previous window
